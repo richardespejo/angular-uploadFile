@@ -1,0 +1,62 @@
+<div class="container">
+<div class="headTitle">Importar</div>
+<form [formGroup]="fileFormGroup" (ngSubmit)="processFile()">
+    
+        <div class="row">
+            <div class="col col-lg-12 dropzone" >
+                <input type="file" id="fileDrop" multiple (change)="fileHandler($event.target.files)" formControlName="file"/>
+                <div [hidden]="dropZone === false">                        
+                    <h3>Subir Archivo</h3>
+                    <label>Selecciona o Arrastra tus archivos aqui.</label>
+                </div>
+                <div *ngIf="errorZone === true">
+                    <img src="../../../assets/img/error-file.png" width="50px"/>
+                    <div *ngIf="errorFile">
+                        <h6 *ngFor="let item of errorFile"  [ngClass]="'error'">{{item}}</h6>
+                    </div>
+                </div>
+                <div *ngIf="okZone === true">
+                    <div class="fileZone">
+                        <img src="../../../assets/img/ok-file.png" width="50px"/>
+                        <p>{{fileName}}</p>
+                        <p>{{fileSize}} KB</p>
+                    </div>
+                    <h3>Archivo listo para procesar.</h3>
+                </div>                            
+            </div>          
+        </div>
+        <div class="row sectionProcess">
+            <div class="col col-md-6">
+                <p class="left style-title-info">Obtener Plantilla de carga</p>
+                <button class="right btn-arrow-up" type="button" (click)="hideContentInformation()">
+                    <img *ngIf="contentInformation === true" class="icon-arrow" src="../../../assets/img/up-chevron.png" alt="icon">
+                    <img *ngIf="contentInformation === false" class="icon-arrow" src="../../../assets/img/down-chevron.png" alt="icon">
+                </button>
+            </div>
+  
+            <div class="col col-md-6 procesar">
+                <button type="submit" class="my-button" [disabled]="!okZone || !fileFormGroup.valid" >PROCESAR ARCHIVOS</button>
+            </div>
+        </div> 
+ 
+        <div class="row" [hidden]="contentInformation === false">
+            <div><p class="style-title-info-small">Seleccione el formato</p></div>
+            <div class="button-icon">
+                <a  download="">
+                    <img src="../../../assets/img/excel-icon.png" width="70px">
+                </a>
+            </div>
+            <div class="button-icon">
+                <a  download="">
+                    <img src="../../../assets/img/csv-icon.png" width="70px">
+                </a>
+            </div>
+            <div class="button-icon">
+                <a  download="">
+                    <img src="../../../assets/img/txt-icon.png" width="70px">
+                </a>
+            </div>               
+        </div>
+
+  </form>
+</div>
